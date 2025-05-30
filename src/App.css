@@ -1,0 +1,105 @@
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(145deg, #121212, #1e1e1e);
+  background-color: gray;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #1a1a1a, #2c2c2c);
+  box-shadow: 8px 8px 16px #0e0e0e, -8px -8px 16px #383838;
+  width: 600px;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #eaeaea;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.card {
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #1a1a1a, #292929);
+  box-shadow: inset 6px 6px 12px #0e0e0e, inset -6px -6px 12px #383838;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #cccccc;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #2c2c2c;
+  color: #eaeaea;
+  box-shadow: inset 4px 4px 8px #0e0e0e, inset -4px -4px 8px #383838;
+  font-size: 1em;
+}
+
+input::placeholder {
+  color: #7a7a7a;
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.start {
+  background-color: #27ae60;
+  color: white;
+  box-shadow: 6px 6px 12px #0e0e0e, -6px -6px 12px #383838;
+}
+
+button.start:hover {
+  background-color: #2ecc71;
+  color: #121212;
+}
+
+button.stop {
+  background-color: #c0392b;
+  color: white;
+  box-shadow: 6px 6px 12px #0e0e0e, -6px -6px 12px #383838;
+}
+
+button.stop:hover {
+  background-color: #e74c3c;
+  color: #121212;
+}
+
+.log-box {
+  background: #2c2c2c;
+  padding: 15px;
+  border-radius: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #dddddd;
+  box-shadow: inset 4px 4px 8px #0e0e0e, inset -4px -4px 8px #383838;
+}
