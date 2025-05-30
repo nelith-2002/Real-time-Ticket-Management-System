@@ -1,0 +1,129 @@
+package com.multithreading.ticketingsystem.service;
+
+import com.multithreading.ticketingsystem.Configuration.ConfigService;
+import com.multithreading.ticketingsystem.Configuration.ConfigurationForm;
+import com.multithreading.ticketingsystem.Customer;
+import com.multithreading.ticketingsystem.TicketPool;
+import com.multithreading.ticketingsystem.Vendor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Service
+public class TicketPoolService {
+
+    private final TicketPool ticketPool;
+
+    // Lists to store vendor and customer threads
+    private final List<Thread> vendorThreads = new ArrayList<>();
+    private final List<Thread> customerThreads = new ArrayList<>();
+
+
+    public TicketPoolService(TicketPool ticketPool) {
+        this.ticketPool = ticketPool;
+    }
+
+
+//    /**
+//     * Starts the ticketing system by creating and starting vendor and customer threads.
+//     *
+//     * @param totalTickets          Total number of tickets to be handled
+//     * @param ticketReleaseRate     Ticket release rate for vendors
+//     * @param customerRetrievalRate Customer retrieval rate
+//     * @param vendorCount           Number of vendor threads
+//     */
+    public void startSystem() throws InterruptedException {
+        System.out.println("Starting the ticketing system...");
+
+        ConfigurationForm config = ConfigService.loadConfiguration();
+        int ticketReleaseRate = config.getTicketReleaseRate();
+        int customerRetrievalRate = config.getCustomerRetrievalRate();
+        int totalTickets = config.getTotalTickets();
+        int maxTicketCapacity = config.getMaxTicketCapacity();
+
+
+        // Clear any previously running threads (if the system was restarted)
+        vendorThreads.clear();
+        customerThreads.clear();
+
+        //int temp = 0;
+
+
+
+
+        for(int j=0;j<=config.getTotalTickets();j++) {
+            if (ticketPool.getTicketPool().size() <= totalTickets) {
+                // Create and start vendor threads
+                for (int i = 0; i < 2; i++) {
+                    if (ticketPool.getTicketPool().size() <= config.getTotalTickets()) {
+                        Thread vendorThread = new Thread(new Vendor(ticketPool, ticketReleaseRate, totalTickets), "Vendor-" + (i + 1));
+                        vendorThreads.add(vendorThread);
+                        vendorThread.start();
+//                        vendorThread.sleep(1000);
+                    } else {
+                        break;
+                    }
+
+                }
+
+                // Create and start customer threads
+                for (int i = 0; i < 3; i++) {
+                    if (!ticketPool.getTicketPool().isEmpty()) {
+                        Thread customerThread = new Thread(new Customer(ticketPool, customerRetrievalRate, totalTickets), "Customer-" + (i + 1));
+                        customerThreads.add(customerThread);
+                        customerThread.start();
+//                        customerThread.sleep(1000);
+
+                    } else {
+                        break;
+                    }
+                }
+                //temp = ticketPool.getTicketPool().size();
+            }
+
+//        System.out.println("Ticketing system started with " + vendorCount + " vendors and " + customerCount + " customers.");
+
+        }
+
+    }
+
+    /**
+     * Stops all active threads and terminates the ticketing system.
+     */
+    public void stopSystem() {
+        System.out.println("Stopping the ticketing system...");
+
+        // Interrupt all vendor threads
+        for (Thread vendorThread : vendorThreads) {
+            if (vendorThread.isAlive()) {
+                vendorThread.interrupt();
+                System.out.println(vendorThread.getName() + " interrupted.");
+            }
+        }
+
+        // Interrupt all customer threads
+        for (Thread customerThread : customerThreads) {
+            if (customerThread.isAlive()) {
+                customerThread.interrupt();
+                System.out.println(customerThread.getName() + " interrupted.");
+            }
+        }
+
+        vendorThreads.clear();
+        customerThreads.clear();
+
+        System.out.println("Ticketing system stopped.");
+    }
+
+
+
+
+
+
+
+
+
+
+}

@@ -1,0 +1,6 @@
+package com.multithreading.ticketingsystem.dto;
+
+public class TicketDTO {
+
+    
+}

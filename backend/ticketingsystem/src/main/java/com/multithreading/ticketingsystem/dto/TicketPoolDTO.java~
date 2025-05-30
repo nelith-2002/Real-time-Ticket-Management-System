@@ -1,0 +1,42 @@
+package com.multithreading.ticketingsystem.dto;
+
+public class TicketPoolDTO {
+    private Long id;
+    private String ticketName;
+    private boolean isSold;
+
+    public  TicketPoolDTO() {
+    }
+
+    public  TicketPoolDTO(Long id, String ticketName, boolean isSold) {
+        this.id = id;
+        this.ticketName = ticketName;
+        this.isSold = isSold;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTicketName() {
+        return ticketName;
+    }
+
+    public void setTicketName(String ticketName) {
+        this.ticketName = ticketName;
+    }
+
+    public boolean isSold() {
+        return isSold;
+    }
+
+    public void setSold(boolean sold) {
+        isSold = sold;
+    }
+
+
+}
